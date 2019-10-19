@@ -1,0 +1,15 @@
+These are the parts of the book corresponding to the lectures. Please notice that: (1) some parts of the referenced chapters may contain some information not covered during the lectures or assignments. This includes sections marked with a * in the book's table of contents. These parts will not be requested at the exam, but it does not hurt reading them. At the same time we cannot cover everything to stay in the 5 credits of the current version of the course. (2) When we cover something during the lectures that is not present on the textbook we will indicate it. Everything covered during the lectures is part of the course and examination.
+
+    Lecture 1: Chapter "Introduction". Slides DM-01.
+    
+	Lectures 2 & 3: Chapter "Data". Slides DM-02. The slides also contain parts on text and graphs not present in the book.
+
+    Lectures 4, 5 & 6: Chapter "Classification: basic concepts and techniques", plus the sections on k-NN and on Class imbalance on Chapter "Classification: alternative techniques". Slides DM-03.
+
+    Lectures 7 & 8: Chapter "Clustering: basic concepts and techniques". Slides DM-04. The slides also contain parts on graph clustering not present in the book.
+
+    Lectures 9, 10 & 11: From the Chapter "Association analysis: basic concepts and techniques": preliminaries, frequent itemset generation, rule generation, compact representation, and part of the section on evaluation. Slides DM-05. Data mining project simulation (class activity, no slides).
+
+    Lecture 12:  Section on ensemble methods on Chapter "Classification: alternative techniques" (notice the parts not in the exam, marked in the slides). From the Chapter "Anomaly detection": Characteristics of Anomaly Detection problem & methods, density-based approaches. Slides DM-06.
+
+    Lectures 13: Exam preparation.
