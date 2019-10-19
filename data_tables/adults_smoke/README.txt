@@ -1,0 +1,1 @@
+SMOKING PREVALENCE, TOTAL (AGES 15+)Prevalence of smoking is the percentage of men and women ages 15 and over who currently smoke any tobacco product on a daily or non-daily basis. It excludes smokeless tobacco use. The rates are age-standardized.Time span 2000-2016Data published by World Bank- World development indicators https://ourworldindata.org/smoking
