@@ -1,3 +1,12 @@
+OUR OWN COMMENTS:
+ - it is advisable to read the chapter about decision trees. Focus on:
+	- 4.3.3 Methods for Expressing Attribute Test Conditions
+	- 4.3.4 Meaasures for Selecting the Best Split
+
+
+
+
+FROM MATTEO MAGNANI
 These are the parts of the book corresponding to the lectures. Please notice that: (1) some parts of the referenced chapters may contain some information not covered during the lectures or assignments. This includes sections marked with a * in the book's table of contents. These parts will not be requested at the exam, but it does not hurt reading them. At the same time we cannot cover everything to stay in the 5 credits of the current version of the course. (2) When we cover something during the lectures that is not present on the textbook we will indicate it. Everything covered during the lectures is part of the course and examination.
 
     Lecture 1: Chapter "Introduction". Slides DM-01.
