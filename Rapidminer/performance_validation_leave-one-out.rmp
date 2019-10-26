@@ -6,7 +6,7 @@
   </context>
   <operator activated="true" class="process" compatibility="9.3.001" expanded="true" name="Process">
     <parameter key="logverbosity" value="init"/>
-    <parameter key="random_seed" value="2001"/>
+    <parameter key="random_seed" value="1992"/>
     <parameter key="send_mail" value="never"/>
     <parameter key="notification_email" value=""/>
     <parameter key="process_duration_for_mail" value="30"/>
@@ -17,7 +17,7 @@
         <parameter key="sheet_selection" value="sheet number"/>
         <parameter key="sheet_name" value="Blad 1"/>
         <parameter key="sheet_number" value="1"/>
-        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="imported_cell_range" value="A1:Q10485776"/>
         <parameter key="encoding" value="SYSTEM"/>
         <parameter key="first_row_as_names" value="true"/>
         <list key="annotations"/>
@@ -32,10 +32,17 @@
           <parameter key="3" value="Religion importantance.true.integer.attribute"/>
           <parameter key="4" value="Smoking.true.real.attribute"/>
           <parameter key="5" value="Distance to equator.true.real.attribute"/>
-          <parameter key="6" value="Ratio nuclear family.true.real.attribute"/>
-          <parameter key="7" value="Oneperson household.true.real.attribute"/>
+          <parameter key="6" value="Average household size (number of members).true.real.attribute"/>
+          <parameter key="7" value="1 member (% of households).true.real.attribute"/>
           <parameter key="8" value="Traffic deaths.true.real.attribute"/>
           <parameter key="9" value="Suicide rate.true.real.attribute"/>
+          <parameter key="10" value="Population density.true.real.attribute"/>
+          <parameter key="11" value="Alcohol or drug use disorder.true.real.attribute"/>
+          <parameter key="12" value="Total Taxes (% GDP).true.real.attribute"/>
+          <parameter key="13" value="GINI Index.true.real.attribute"/>
+          <parameter key="14" value="Indivduals using internet %.true.real.attribute"/>
+          <parameter key="15" value="Total value of export (% of GDP).true.real.attribute"/>
+          <parameter key="16" value="Arable land.true.real.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
         <parameter key="datamanagement" value="double_array"/>
@@ -77,18 +84,18 @@
           <operator activated="true" class="performance_regression" compatibility="9.3.001" expanded="true" height="82" name="Performance decision tree" width="90" x="179" y="289">
             <parameter key="main_criterion" value="first"/>
             <parameter key="root_mean_squared_error" value="true"/>
-            <parameter key="absolute_error" value="false"/>
-            <parameter key="relative_error" value="false"/>
-            <parameter key="relative_error_lenient" value="false"/>
-            <parameter key="relative_error_strict" value="false"/>
+            <parameter key="absolute_error" value="true"/>
+            <parameter key="relative_error" value="true"/>
+            <parameter key="relative_error_lenient" value="true"/>
+            <parameter key="relative_error_strict" value="true"/>
             <parameter key="normalized_absolute_error" value="false"/>
             <parameter key="root_relative_squared_error" value="false"/>
-            <parameter key="squared_error" value="false"/>
-            <parameter key="correlation" value="false"/>
-            <parameter key="squared_correlation" value="false"/>
-            <parameter key="prediction_average" value="false"/>
-            <parameter key="spearman_rho" value="false"/>
-            <parameter key="kendall_tau" value="false"/>
+            <parameter key="squared_error" value="true"/>
+            <parameter key="correlation" value="true"/>
+            <parameter key="squared_correlation" value="true"/>
+            <parameter key="prediction_average" value="true"/>
+            <parameter key="spearman_rho" value="true"/>
+            <parameter key="kendall_tau" value="true"/>
             <parameter key="skip_undefined_labels" value="true"/>
             <parameter key="use_example_weights" value="true"/>
           </operator>
@@ -149,17 +156,17 @@
           <operator activated="true" class="performance_regression" compatibility="9.3.001" expanded="true" height="82" name="Performance forrest" width="90" x="179" y="289">
             <parameter key="main_criterion" value="first"/>
             <parameter key="root_mean_squared_error" value="true"/>
-            <parameter key="absolute_error" value="false"/>
-            <parameter key="relative_error" value="false"/>
-            <parameter key="relative_error_lenient" value="false"/>
-            <parameter key="relative_error_strict" value="false"/>
+            <parameter key="absolute_error" value="true"/>
+            <parameter key="relative_error" value="true"/>
+            <parameter key="relative_error_lenient" value="true"/>
+            <parameter key="relative_error_strict" value="true"/>
             <parameter key="normalized_absolute_error" value="false"/>
             <parameter key="root_relative_squared_error" value="false"/>
-            <parameter key="squared_error" value="false"/>
-            <parameter key="correlation" value="false"/>
+            <parameter key="squared_error" value="true"/>
+            <parameter key="correlation" value="true"/>
             <parameter key="squared_correlation" value="false"/>
-            <parameter key="prediction_average" value="false"/>
-            <parameter key="spearman_rho" value="false"/>
+            <parameter key="prediction_average" value="true"/>
+            <parameter key="spearman_rho" value="true"/>
             <parameter key="kendall_tau" value="false"/>
             <parameter key="skip_undefined_labels" value="true"/>
             <parameter key="use_example_weights" value="true"/>

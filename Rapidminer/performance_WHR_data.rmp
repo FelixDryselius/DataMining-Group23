@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.3.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.3.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="1992"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_excel" compatibility="9.3.001" expanded="true" height="68" name="Read Excel" width="90" x="45" y="340">
+        <parameter key="excel_file" value="C:\Users\Felix\.RapidMiner\repositories\Local Repository\DataMining-Group23\Report_and_data\Chapter2OnlineData.xlsx"/>
+        <parameter key="sheet_selection" value="sheet number"/>
+        <parameter key="sheet_name" value="Blad 1"/>
+        <parameter key="sheet_number" value="3"/>
+        <parameter key="imported_cell_range" value="A1:L10485776"/>
+        <parameter key="encoding" value="SYSTEM"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="date_format" value=""/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="Country name.true.polynominal.id"/>
+          <parameter key="1" value="Year.false.integer.attribute"/>
+          <parameter key="2" value="Life Ladder.false.real.attribute"/>
+          <parameter key="3" value="Life Ladder rounded.true.integer.label"/>
+          <parameter key="4" value="Log GDP per capita.true.real.attribute"/>
+          <parameter key="5" value="Social support.true.real.attribute"/>
+          <parameter key="6" value="Healthy life expectancy at birth.true.real.attribute"/>
+          <parameter key="7" value="Freedom to make life choices.true.real.attribute"/>
+          <parameter key="8" value="Generosity.true.real.attribute"/>
+          <parameter key="9" value="Perceptions of corruption.true.real.attribute"/>
+          <parameter key="10" value="Positive affect.false.real.attribute"/>
+          <parameter key="11" value="Negative affect.false.real.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+        <parameter key="datamanagement" value="double_array"/>
+        <parameter key="data_management" value="auto"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply" width="90" x="112" y="187"/>
+      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Random forrest (leave one out)" width="90" x="380" y="136">
+        <parameter key="split_on_batch_attribute" value="false"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_folds" value="30"/>
+        <parameter key="sampling_type" value="automatic"/>
+        <parameter key="use_local_random_seed" value="true"/>
+        <parameter key="local_random_seed" value="1992"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="concurrency:parallel_random_forest" compatibility="9.3.001" expanded="true" height="103" name="Random Forest" width="90" x="112" y="85">
+            <parameter key="number_of_trees" value="100"/>
+            <parameter key="criterion" value="least_square"/>
+            <parameter key="maximal_depth" value="10"/>
+            <parameter key="apply_pruning" value="false"/>
+            <parameter key="confidence" value="0.1"/>
+            <parameter key="apply_prepruning" value="true"/>
+            <parameter key="minimal_gain" value="0.01"/>
+            <parameter key="minimal_leaf_size" value="2"/>
+            <parameter key="minimal_size_for_split" value="4"/>
+            <parameter key="number_of_prepruning_alternatives" value="3"/>
+            <parameter key="random_splits" value="false"/>
+            <parameter key="guess_subset_ratio" value="true"/>
+            <parameter key="subset_ratio" value="0.2"/>
+            <parameter key="voting_strategy" value="confidence vote"/>
+            <parameter key="use_local_random_seed" value="true"/>
+            <parameter key="local_random_seed" value="1992"/>
+            <parameter key="enable_parallel_execution" value="true"/>
+          </operator>
+          <connect from_port="training set" to_op="Random Forest" to_port="training set"/>
+          <connect from_op="Random Forest" from_port="model" to_port="model"/>
+          <portSpacing port="source_training set" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_through 1" spacing="0"/>
+        </process>
+        <process expanded="true">
+          <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (2)" width="90" x="45" y="238"/>
+          <operator activated="true" class="apply_model" compatibility="9.3.001" expanded="true" height="82" name="Apply Model forrest" width="90" x="112" y="34">
+            <list key="application_parameters"/>
+            <parameter key="create_view" value="false"/>
+          </operator>
+          <operator activated="true" class="performance_regression" compatibility="9.3.001" expanded="true" height="82" name="Performance forrest" width="90" x="179" y="289">
+            <parameter key="main_criterion" value="first"/>
+            <parameter key="root_mean_squared_error" value="true"/>
+            <parameter key="absolute_error" value="true"/>
+            <parameter key="relative_error" value="true"/>
+            <parameter key="relative_error_lenient" value="true"/>
+            <parameter key="relative_error_strict" value="true"/>
+            <parameter key="normalized_absolute_error" value="true"/>
+            <parameter key="root_relative_squared_error" value="true"/>
+            <parameter key="squared_error" value="true"/>
+            <parameter key="correlation" value="true"/>
+            <parameter key="squared_correlation" value="true"/>
+            <parameter key="prediction_average" value="true"/>
+            <parameter key="spearman_rho" value="true"/>
+            <parameter key="kendall_tau" value="true"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <connect from_port="model" to_op="Apply Model forrest" to_port="model"/>
+          <connect from_port="test set" to_op="Multiply (2)" to_port="input"/>
+          <connect from_op="Multiply (2)" from_port="output 1" to_op="Apply Model forrest" to_port="unlabelled data"/>
+          <connect from_op="Multiply (2)" from_port="output 2" to_port="test set results"/>
+          <connect from_op="Apply Model forrest" from_port="labelled data" to_op="Performance forrest" to_port="labelled data"/>
+          <connect from_op="Performance forrest" from_port="performance" to_port="performance 1"/>
+          <portSpacing port="source_model" spacing="0"/>
+          <portSpacing port="source_test set" spacing="0"/>
+          <portSpacing port="source_through 1" spacing="0"/>
+          <portSpacing port="sink_test set results" spacing="0"/>
+          <portSpacing port="sink_performance 1" spacing="0"/>
+          <portSpacing port="sink_performance 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Decision tree leave-one-out" width="90" x="380" y="289">
+        <parameter key="split_on_batch_attribute" value="false"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_folds" value="30"/>
+        <parameter key="sampling_type" value="automatic"/>
+        <parameter key="use_local_random_seed" value="true"/>
+        <parameter key="local_random_seed" value="1992"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+        <process expanded="true">
+          <operator activated="true" class="concurrency:parallel_decision_tree" compatibility="9.3.001" expanded="true" height="103" name="Decision Tree" width="90" x="112" y="187">
+            <parameter key="criterion" value="least_square"/>
+            <parameter key="maximal_depth" value="10"/>
+            <parameter key="apply_pruning" value="true"/>
+            <parameter key="confidence" value="0.1"/>
+            <parameter key="apply_prepruning" value="true"/>
+            <parameter key="minimal_gain" value="0.01"/>
+            <parameter key="minimal_leaf_size" value="2"/>
+            <parameter key="minimal_size_for_split" value="4"/>
+            <parameter key="number_of_prepruning_alternatives" value="3"/>
+          </operator>
+          <connect from_port="training set" to_op="Decision Tree" to_port="training set"/>
+          <connect from_op="Decision Tree" from_port="model" to_port="model"/>
+          <portSpacing port="source_training set" spacing="0"/>
+          <portSpacing port="sink_model" spacing="0"/>
+          <portSpacing port="sink_through 1" spacing="0"/>
+        </process>
+        <process expanded="true">
+          <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (3)" width="90" x="45" y="238"/>
+          <operator activated="true" class="apply_model" compatibility="9.3.001" expanded="true" height="82" name="Apply Model decision tree" width="90" x="112" y="34">
+            <list key="application_parameters"/>
+            <parameter key="create_view" value="false"/>
+          </operator>
+          <operator activated="true" class="performance_regression" compatibility="9.3.001" expanded="true" height="82" name="Performance decision tree" width="90" x="179" y="289">
+            <parameter key="main_criterion" value="first"/>
+            <parameter key="root_mean_squared_error" value="true"/>
+            <parameter key="absolute_error" value="true"/>
+            <parameter key="relative_error" value="true"/>
+            <parameter key="relative_error_lenient" value="true"/>
+            <parameter key="relative_error_strict" value="true"/>
+            <parameter key="normalized_absolute_error" value="true"/>
+            <parameter key="root_relative_squared_error" value="true"/>
+            <parameter key="squared_error" value="true"/>
+            <parameter key="correlation" value="true"/>
+            <parameter key="squared_correlation" value="true"/>
+            <parameter key="prediction_average" value="true"/>
+            <parameter key="spearman_rho" value="true"/>
+            <parameter key="kendall_tau" value="true"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <connect from_port="model" to_op="Apply Model decision tree" to_port="model"/>
+          <connect from_port="test set" to_op="Multiply (3)" to_port="input"/>
+          <connect from_op="Multiply (3)" from_port="output 1" to_op="Apply Model decision tree" to_port="unlabelled data"/>
+          <connect from_op="Multiply (3)" from_port="output 2" to_port="test set results"/>
+          <connect from_op="Apply Model decision tree" from_port="labelled data" to_op="Performance decision tree" to_port="labelled data"/>
+          <connect from_op="Performance decision tree" from_port="performance" to_port="performance 1"/>
+          <portSpacing port="source_model" spacing="0"/>
+          <portSpacing port="source_test set" spacing="0"/>
+          <portSpacing port="source_through 1" spacing="0"/>
+          <portSpacing port="sink_test set results" spacing="0"/>
+          <portSpacing port="sink_performance 1" spacing="0"/>
+          <portSpacing port="sink_performance 2" spacing="0"/>
+        </process>
+      </operator>
+      <connect from_op="Read Excel" from_port="output" to_op="Multiply" to_port="input"/>
+      <connect from_op="Multiply" from_port="output 1" to_op="Decision tree leave-one-out" to_port="example set"/>
+      <connect from_op="Multiply" from_port="output 2" to_op="Random forrest (leave one out)" to_port="example set"/>
+      <connect from_op="Random forrest (leave one out)" from_port="model" to_port="result 5"/>
+      <connect from_op="Random forrest (leave one out)" from_port="example set" to_port="result 6"/>
+      <connect from_op="Random forrest (leave one out)" from_port="test result set" to_port="result 7"/>
+      <connect from_op="Random forrest (leave one out)" from_port="performance 1" to_port="result 8"/>
+      <connect from_op="Decision tree leave-one-out" from_port="model" to_port="result 1"/>
+      <connect from_op="Decision tree leave-one-out" from_port="example set" to_port="result 2"/>
+      <connect from_op="Decision tree leave-one-out" from_port="test result set" to_port="result 3"/>
+      <connect from_op="Decision tree leave-one-out" from_port="performance 1" to_port="result 4"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
+      <portSpacing port="sink_result 7" spacing="0"/>
+      <portSpacing port="sink_result 8" spacing="0"/>
+      <portSpacing port="sink_result 9" spacing="0"/>
+    </process>
+  </operator>
+</process>
