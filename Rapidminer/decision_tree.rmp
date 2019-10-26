@@ -17,7 +17,7 @@
         <parameter key="sheet_selection" value="sheet number"/>
         <parameter key="sheet_name" value="Blad 1"/>
         <parameter key="sheet_number" value="1"/>
-        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="imported_cell_range" value="A1:R10485776"/>
         <parameter key="encoding" value="SYSTEM"/>
         <parameter key="first_row_as_names" value="true"/>
         <list key="annotations"/>
@@ -32,10 +32,18 @@
           <parameter key="3" value="Religion importantance.true.integer.attribute"/>
           <parameter key="4" value="Smoking.true.real.attribute"/>
           <parameter key="5" value="Distance to equator.true.real.attribute"/>
-          <parameter key="6" value="Ratio nuclear family.true.real.attribute"/>
-          <parameter key="7" value="Oneperson household.true.real.attribute"/>
+          <parameter key="6" value="Average household size (number of members).true.real.attribute"/>
+          <parameter key="7" value="1 member (% of households).true.real.attribute"/>
           <parameter key="8" value="Traffic deaths.true.real.attribute"/>
           <parameter key="9" value="Suicide rate.true.real.attribute"/>
+          <parameter key="10" value="Population density.true.real.attribute"/>
+          <parameter key="11" value="Alcohol or drug use disorder.true.real.attribute"/>
+          <parameter key="12" value="Total Taxes (% GDP).true.real.attribute"/>
+          <parameter key="13" value="GINI Index.true.real.attribute"/>
+          <parameter key="14" value="Indivduals using internet %.true.real.attribute"/>
+          <parameter key="15" value="Total value of export (% of GDP).true.real.attribute"/>
+          <parameter key="16" value="Arable land.true.real.attribute"/>
+          <parameter key="17" value="R.false.polynominal.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
         <parameter key="datamanagement" value="double_array"/>
