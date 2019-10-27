@@ -13,11 +13,11 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="read_excel" compatibility="9.3.001" expanded="true" height="68" name="Read Excel" width="90" x="45" y="340">
-        <parameter key="excel_file" value="C:\Users\Felix\.RapidMiner\repositories\Local Repository\DataMining-Group23\data_tables\Total_data_cleaned.xlsx"/>
+        <parameter key="excel_file" value="C:\Users\Felix\.RapidMiner\repositories\Local Repository\DataMining-Group23\Report_and_data\Chapter2OnlineData.xlsx"/>
         <parameter key="sheet_selection" value="sheet number"/>
         <parameter key="sheet_name" value="Blad 1"/>
-        <parameter key="sheet_number" value="1"/>
-        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="sheet_number" value="3"/>
+        <parameter key="imported_cell_range" value="A1:M10485776"/>
         <parameter key="encoding" value="SYSTEM"/>
         <parameter key="first_row_as_names" value="true"/>
         <list key="annotations"/>
@@ -26,30 +26,30 @@
         <parameter key="locale" value="English (United States)"/>
         <parameter key="read_all_values_as_polynominal" value="false"/>
         <list key="data_set_meta_data_information">
-          <parameter key="0" value="Country.true.polynominal.id"/>
-          <parameter key="1" value="Happiness value.false.real.attribute"/>
-          <parameter key="2" value="Happiness binary.true.polynominal.label"/>
-          <parameter key="3" value="Happiness value rounded.false.integer.attribute"/>
-          <parameter key="4" value="Religion importantance.true.integer.attribute"/>
-          <parameter key="5" value="Smoking.true.real.attribute"/>
-          <parameter key="6" value="Distance to equator.true.real.attribute"/>
-          <parameter key="7" value="Average household size (number of members).true.real.attribute"/>
-          <parameter key="8" value="1 member (% of households).true.real.attribute"/>
-          <parameter key="9" value="Traffic deaths.true.real.attribute"/>
-          <parameter key="10" value="Suicide rate.true.real.attribute"/>
-          <parameter key="11" value="Population density.true.real.attribute"/>
-          <parameter key="12" value="Alcohol or drug use disorder.true.real.attribute"/>
-          <parameter key="13" value="Total Taxes (% GDP).true.real.attribute"/>
-          <parameter key="14" value="GINI Index.true.real.attribute"/>
-          <parameter key="15" value="Indivduals using internet %.true.real.attribute"/>
-          <parameter key="16" value="Total value of export (% of GDP).true.real.attribute"/>
-          <parameter key="17" value="Arable land.true.real.attribute"/>
+          <parameter key="0" value="Country name.true.polynominal.id"/>
+          <parameter key="1" value="Year.false.integer.attribute"/>
+          <parameter key="2" value="Life Ladder.false.real.attribute"/>
+          <parameter key="3" value="Life Ladder binary.true.polynominal.label"/>
+          <parameter key="4" value="Life Ladder rounded.false.integer.attribute"/>
+          <parameter key="5" value="Log GDP per capita.true.real.attribute"/>
+          <parameter key="6" value="Social support.true.real.attribute"/>
+          <parameter key="7" value="Healthy life expectancy at birth.true.real.attribute"/>
+          <parameter key="8" value="Freedom to make life choices.true.real.attribute"/>
+          <parameter key="9" value="Generosity.true.real.attribute"/>
+          <parameter key="10" value="Perceptions of corruption.true.real.attribute"/>
+          <parameter key="11" value="Positive affect.false.real.attribute"/>
+          <parameter key="12" value="Negative affect.false.real.attribute"/>
         </list>
         <parameter key="read_not_matching_values_as_missings" value="false"/>
         <parameter key="datamanagement" value="double_array"/>
         <parameter key="data_management" value="auto"/>
       </operator>
-      <operator activated="false" class="normalize" compatibility="9.3.001" expanded="true" height="103" name="Normalize" width="90" x="45" y="187">
+      <operator activated="false" class="detect_outlier_distances" compatibility="9.3.001" expanded="true" height="82" name="Detect Outlier (Distances)" width="90" x="179" y="391">
+        <parameter key="number_of_neighbors" value="10"/>
+        <parameter key="number_of_outliers" value="10"/>
+        <parameter key="distance_function" value="squared distance"/>
+      </operator>
+      <operator activated="false" class="normalize" compatibility="9.3.001" expanded="true" height="103" name="Normalize" width="90" x="179" y="238">
         <parameter key="return_preprocessing_model" value="false"/>
         <parameter key="create_view" value="false"/>
         <parameter key="attribute_filter_type" value="all"/>
@@ -74,18 +74,20 @@
         <parameter key="variance_threshold" value="0.95"/>
         <parameter key="number_of_components" value="1"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply" width="90" x="313" y="187"/>
-      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Decision tree leave-one-out" width="90" x="581" y="238">
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (8)" width="90" x="313" y="187"/>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (7)" width="90" x="447" y="289"/>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply" width="90" x="581" y="187"/>
+      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Decision tree leave-one-out" width="90" x="715" y="238">
         <parameter key="split_on_batch_attribute" value="false"/>
-        <parameter key="leave_one_out" value="true"/>
-        <parameter key="number_of_folds" value="10"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_folds" value="20"/>
         <parameter key="sampling_type" value="automatic"/>
-        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="use_local_random_seed" value="true"/>
         <parameter key="local_random_seed" value="1992"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
           <operator activated="true" class="concurrency:parallel_decision_tree" compatibility="9.3.001" expanded="true" height="103" name="Decision Tree" width="90" x="112" y="187">
-            <parameter key="criterion" value="accuracy"/>
+            <parameter key="criterion" value="gain_ratio"/>
             <parameter key="maximal_depth" value="10"/>
             <parameter key="apply_pruning" value="true"/>
             <parameter key="confidence" value="0.1"/>
@@ -148,18 +150,18 @@
           <portSpacing port="sink_performance 2" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Random forrest (leave one out)" width="90" x="514" y="85">
+      <operator activated="true" class="concurrency:cross_validation" compatibility="9.3.001" expanded="true" height="145" name="Random forrest (leave one out)" width="90" x="715" y="85">
         <parameter key="split_on_batch_attribute" value="false"/>
-        <parameter key="leave_one_out" value="true"/>
-        <parameter key="number_of_folds" value="10"/>
+        <parameter key="leave_one_out" value="false"/>
+        <parameter key="number_of_folds" value="20"/>
         <parameter key="sampling_type" value="automatic"/>
-        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="use_local_random_seed" value="true"/>
         <parameter key="local_random_seed" value="1992"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
           <operator activated="true" class="concurrency:parallel_random_forest" compatibility="9.3.001" expanded="true" height="103" name="Random Forest" width="90" x="112" y="85">
             <parameter key="number_of_trees" value="100"/>
-            <parameter key="criterion" value="accuracy"/>
+            <parameter key="criterion" value="gain_ratio"/>
             <parameter key="maximal_depth" value="10"/>
             <parameter key="apply_pruning" value="true"/>
             <parameter key="confidence" value="0.1"/>
@@ -229,17 +231,56 @@
           <portSpacing port="sink_performance 2" spacing="0"/>
         </process>
       </operator>
-      <connect from_op="Read Excel" from_port="output" to_op="Multiply" to_port="input"/>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (4)" width="90" x="849" y="320"/>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="103" name="Multiply (5)" width="90" x="849" y="164"/>
+      <operator activated="true" class="log" compatibility="9.3.001" expanded="true" height="103" name="Log" width="90" x="380" y="442">
+        <list key="log">
+          <parameter key="Accuracy NotWHR Decision Tree" value="operator.Performance decision tree.value.accuracy"/>
+          <parameter key="Classification Error NotWHR Decision Tree" value="operator.Performance decision tree.value.classification_error"/>
+          <parameter key="Relative Error Strict NotWHR Decision Tree" value="operator.Performance decision tree.value.relative_error_strict"/>
+          <parameter key="Accuracy NotWHR Random Forest" value="operator.Performance forest.value.accuracy"/>
+          <parameter key="Classification Error NotWHR Random Forest" value="operator.Performance forest.value.classification_error"/>
+          <parameter key="Relative Error Strict NotWHR DRandom Forest" value="operator.Performance forest.value.relative_error_strict"/>
+        </list>
+        <parameter key="sorting_type" value="none"/>
+        <parameter key="sorting_k" value="100"/>
+        <parameter key="persistent" value="false"/>
+      </operator>
+      <operator activated="true" class="log_to_data" compatibility="9.3.001" expanded="true" height="103" name="Log to Data" width="90" x="581" y="493">
+        <parameter key="log_name" value="Log"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="9.3.001" expanded="true" height="82" name="Multiply (6)" width="90" x="715" y="391"/>
+      <operator activated="true" class="write_excel" compatibility="9.3.001" expanded="true" height="103" name="Write Excel" width="90" x="849" y="493">
+        <parameter key="excel_file" value="C:\Users\Felix\.RapidMiner\repositories\Local Repository\DataMining-Group23\data_tables\Resultstemp.xlsx"/>
+        <parameter key="file_format" value="xlsx"/>
+        <enumeration key="sheet_names"/>
+        <parameter key="sheet_name" value="RapidMiner Data"/>
+        <parameter key="date_format" value="yyyy-MM-dd HH:mm:ss"/>
+        <parameter key="number_format" value="#.0"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <connect from_op="Read Excel" from_port="output" to_op="Multiply (8)" to_port="input"/>
+      <connect from_op="Multiply (8)" from_port="output 1" to_op="Multiply (7)" to_port="input"/>
+      <connect from_op="Multiply (8)" from_port="output 2" to_port="result 10"/>
+      <connect from_op="Multiply (7)" from_port="output 1" to_op="Multiply" to_port="input"/>
+      <connect from_op="Multiply (7)" from_port="output 2" to_port="result 9"/>
       <connect from_op="Multiply" from_port="output 1" to_op="Random forrest (leave one out)" to_port="example set"/>
       <connect from_op="Multiply" from_port="output 2" to_op="Decision tree leave-one-out" to_port="example set"/>
-      <connect from_op="Decision tree leave-one-out" from_port="model" to_port="result 5"/>
-      <connect from_op="Decision tree leave-one-out" from_port="example set" to_port="result 6"/>
-      <connect from_op="Decision tree leave-one-out" from_port="test result set" to_port="result 7"/>
-      <connect from_op="Decision tree leave-one-out" from_port="performance 1" to_port="result 8"/>
+      <connect from_op="Decision tree leave-one-out" from_port="model" to_port="result 4"/>
+      <connect from_op="Decision tree leave-one-out" from_port="example set" to_port="result 5"/>
+      <connect from_op="Decision tree leave-one-out" from_port="test result set" to_port="result 6"/>
+      <connect from_op="Decision tree leave-one-out" from_port="performance 1" to_op="Multiply (4)" to_port="input"/>
       <connect from_op="Random forrest (leave one out)" from_port="model" to_port="result 1"/>
       <connect from_op="Random forrest (leave one out)" from_port="example set" to_port="result 2"/>
       <connect from_op="Random forrest (leave one out)" from_port="test result set" to_port="result 3"/>
-      <connect from_op="Random forrest (leave one out)" from_port="performance 1" to_port="result 4"/>
+      <connect from_op="Random forrest (leave one out)" from_port="performance 1" to_op="Multiply (5)" to_port="input"/>
+      <connect from_op="Multiply (4)" from_port="output 1" to_port="result 7"/>
+      <connect from_op="Multiply (4)" from_port="output 2" to_op="Log" to_port="through 1"/>
+      <connect from_op="Multiply (5)" from_port="output 1" to_port="result 8"/>
+      <connect from_op="Multiply (5)" from_port="output 2" to_op="Log" to_port="through 2"/>
+      <connect from_op="Log" from_port="through 1" to_op="Log to Data" to_port="through 1"/>
+      <connect from_op="Log to Data" from_port="exampleSet" to_op="Multiply (6)" to_port="input"/>
+      <connect from_op="Multiply (6)" from_port="output 1" to_op="Write Excel" to_port="input"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
@@ -250,6 +291,8 @@
       <portSpacing port="sink_result 7" spacing="0"/>
       <portSpacing port="sink_result 8" spacing="0"/>
       <portSpacing port="sink_result 9" spacing="0"/>
+      <portSpacing port="sink_result 10" spacing="0"/>
+      <portSpacing port="sink_result 11" spacing="0"/>
     </process>
   </operator>
 </process>
